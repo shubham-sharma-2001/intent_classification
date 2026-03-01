@@ -1,0 +1,1026 @@
+[
+    {
+        "text": "I want to grab 10 units of XYZ stock",
+        "intent": "buy"
+    },
+    {
+        "text": "purchase 50 shares of AAPL",
+        "intent": "buy"
+    },
+    {
+        "text": "buy 100 units of TSLA immediately",
+        "intent": "buy"
+    },
+    {
+        "text": "acquire 200 shares of MSFT at market price",
+        "intent": "buy"
+    },
+    {
+        "text": "place a buy order for 30 shares of GOOG",
+        "intent": "buy"
+    },
+    {
+        "text": "get me 500 units of RELIANCE",
+        "intent": "buy"
+    },
+    {
+        "text": "i want to invest in 25 shares of AMZN",
+        "intent": "buy"
+    },
+    {
+        "text": "buy NIFTY futures right now",
+        "intent": "buy"
+    },
+    {
+        "text": "execute a buy for 75 units of META",
+        "intent": "buy"
+    },
+    {
+        "text": "pick up 40 shares of Netflix",
+        "intent": "buy"
+    },
+    {
+        "text": "grab 1000 units of HDFC bank",
+        "intent": "buy"
+    },
+    {
+        "text": "enter long position on INFY with 200 shares",
+        "intent": "buy"
+    },
+    {
+        "text": "i want to take a position in WIPRO stock buy 150 units",
+        "intent": "buy"
+    },
+    {
+        "text": "market buy 60 shares of TCS",
+        "intent": "buy"
+    },
+    {
+        "text": "put in a buy order for 300 units of BankNifty",
+        "intent": "buy"
+    },
+    {
+        "text": "go long on TATA motors with 80 units",
+        "intent": "buy"
+    },
+    {
+        "text": "add 90 shares of BAJAJ to my portfolio",
+        "intent": "buy"
+    },
+    {
+        "text": "execute buy at current price for 45 units of ADANI",
+        "intent": "buy"
+    },
+    {
+        "text": "take 120 shares of ICICI bank",
+        "intent": "buy"
+    },
+    {
+        "text": "i want to purchase some Tesla stock right now",
+        "intent": "buy"
+    },
+    {
+        "text": "order 250 units of SENSEX now",
+        "intent": "buy"
+    },
+    {
+        "text": "immediately acquire 55 shares of NVIDIA",
+        "intent": "buy"
+    },
+    {
+        "text": "buy in at this price for AMD 110 units",
+        "intent": "buy"
+    },
+    {
+        "text": "get me into ZOMATO stock 500 units",
+        "intent": "buy"
+    },
+    {
+        "text": "initiate a long trade on PAYTM 200 shares",
+        "intent": "buy"
+    },
+    {
+        "text": "i want to buy some stock now",
+        "intent": "buy"
+    },
+    {
+        "text": "take a position in this stock",
+        "intent": "buy"
+    },
+    {
+        "text": "buy 50 units of this company",
+        "intent": "buy"
+    },
+    {
+        "text": "pick up shares in the new company",
+        "intent": "buy"
+    },
+    {
+        "text": "i would like to invest and purchase shares",
+        "intent": "buy"
+    },
+    {
+        "text": "enter a trade and buy shares immediately",
+        "intent": "buy"
+    },
+    {
+        "text": "order 100 units of the stock",
+        "intent": "buy"
+    },
+    {
+        "text": "place purchase order for equity shares",
+        "intent": "buy"
+    },
+    {
+        "text": "i want to acquire some holdings in this firm",
+        "intent": "buy"
+    },
+    {
+        "text": "get me into this stock with 200 units",
+        "intent": "buy"
+    },
+    {
+        "text": "sell 10 units of XYZ stock",
+        "intent": "sell"
+    },
+    {
+        "text": "offload 50 shares of AAPL now",
+        "intent": "sell"
+    },
+    {
+        "text": "dispose of my 100 TSLA shares",
+        "intent": "sell"
+    },
+    {
+        "text": "exit my position in MSFT sell 200 units",
+        "intent": "sell"
+    },
+    {
+        "text": "place a sell order for 30 shares of GOOG",
+        "intent": "sell"
+    },
+    {
+        "text": "get rid of 500 units of RELIANCE",
+        "intent": "sell"
+    },
+    {
+        "text": "dump 25 shares of AMZN right away",
+        "intent": "sell"
+    },
+    {
+        "text": "close out my NIFTY position",
+        "intent": "sell"
+    },
+    {
+        "text": "execute a sell for 75 units of META",
+        "intent": "sell"
+    },
+    {
+        "text": "liquidate 40 shares of Netflix",
+        "intent": "sell"
+    },
+    {
+        "text": "sell my entire HDFC bank holding",
+        "intent": "sell"
+    },
+    {
+        "text": "go short on INFY and sell 200 shares",
+        "intent": "sell"
+    },
+    {
+        "text": "i want to exit WIPRO stock sell 150 units",
+        "intent": "sell"
+    },
+    {
+        "text": "market sell 60 shares of TCS immediately",
+        "intent": "sell"
+    },
+    {
+        "text": "put in a sell order for 300 units of BankNifty",
+        "intent": "sell"
+    },
+    {
+        "text": "exit long position on TATA motors 80 units",
+        "intent": "sell"
+    },
+    {
+        "text": "remove 90 shares of BAJAJ from my portfolio",
+        "intent": "sell"
+    },
+    {
+        "text": "sell at current market price 45 units of ADANI",
+        "intent": "sell"
+    },
+    {
+        "text": "square off 120 shares of ICICI bank",
+        "intent": "sell"
+    },
+    {
+        "text": "i need to sell some Tesla stock right now",
+        "intent": "sell"
+    },
+    {
+        "text": "clear my SENSEX futures position 250 units",
+        "intent": "sell"
+    },
+    {
+        "text": "book profits on NVIDIA sell 55 shares",
+        "intent": "sell"
+    },
+    {
+        "text": "cut my AMD position 110 units sell now",
+        "intent": "sell"
+    },
+    {
+        "text": "exit ZOMATO stock 500 units immediately",
+        "intent": "sell"
+    },
+    {
+        "text": "close the PAYTM trade sell 200 shares",
+        "intent": "sell"
+    },
+    {
+        "text": "get rid of my stock holdings",
+        "intent": "sell"
+    },
+    {
+        "text": "get rid of all shares now",
+        "intent": "sell"
+    },
+    {
+        "text": "get rid of this stock immediately",
+        "intent": "sell"
+    },
+    {
+        "text": "get rid of all positions in the market",
+        "intent": "sell"
+    },
+    {
+        "text": "get rid of every stock I own",
+        "intent": "sell"
+    },
+    {
+        "text": "dump all my stocks right now",
+        "intent": "sell"
+    },
+    {
+        "text": "dump everything in my portfolio",
+        "intent": "sell"
+    },
+    {
+        "text": "unload all my shares",
+        "intent": "sell"
+    },
+    {
+        "text": "unload this position from my account",
+        "intent": "sell"
+    },
+    {
+        "text": "clear out all my stocks",
+        "intent": "sell"
+    },
+    {
+        "text": "clear out my entire position",
+        "intent": "sell"
+    },
+    {
+        "text": "wipe out my holdings completely",
+        "intent": "sell"
+    },
+    {
+        "text": "flush out all the shares in my account",
+        "intent": "sell"
+    },
+    {
+        "text": "i want to exit all my trades now",
+        "intent": "sell"
+    },
+    {
+        "text": "close all my positions in the market",
+        "intent": "sell"
+    },
+    {
+        "text": "sell off all holdings right now",
+        "intent": "sell"
+    },
+    {
+        "text": "liquidate my entire portfolio today",
+        "intent": "sell"
+    },
+    {
+        "text": "remove all stocks from my account",
+        "intent": "sell"
+    },
+    {
+        "text": "square off everything immediately",
+        "intent": "sell"
+    },
+    {
+        "text": "i want to sell this stock right away",
+        "intent": "sell"
+    },
+    {
+        "text": "take money out by selling my shares",
+        "intent": "sell"
+    },
+    {
+        "text": "hold my current position in XYZ",
+        "intent": "hold"
+    },
+    {
+        "text": "keep my AAPL shares for now do not sell",
+        "intent": "hold"
+    },
+    {
+        "text": "maintain my TSLA position",
+        "intent": "hold"
+    },
+    {
+        "text": "do not touch my MSFT holdings",
+        "intent": "hold"
+    },
+    {
+        "text": "stay with GOOG do not sell yet",
+        "intent": "hold"
+    },
+    {
+        "text": "continue holding RELIANCE stock",
+        "intent": "hold"
+    },
+    {
+        "text": "i want to keep my AMZN shares a bit longer",
+        "intent": "hold"
+    },
+    {
+        "text": "no action needed just hold NIFTY",
+        "intent": "hold"
+    },
+    {
+        "text": "retain my META position unchanged",
+        "intent": "hold"
+    },
+    {
+        "text": "sit tight on Netflix shares",
+        "intent": "hold"
+    },
+    {
+        "text": "do not liquidate HDFC bank keep it",
+        "intent": "hold"
+    },
+    {
+        "text": "hold INFY for the long term",
+        "intent": "hold"
+    },
+    {
+        "text": "maintain current WIPRO position leave it as is",
+        "intent": "hold"
+    },
+    {
+        "text": "no trade needed keep TCS",
+        "intent": "hold"
+    },
+    {
+        "text": "keep BankNifty position intact",
+        "intent": "hold"
+    },
+    {
+        "text": "let TATA motors run hold for now",
+        "intent": "hold"
+    },
+    {
+        "text": "do not exit BAJAJ stay in the trade",
+        "intent": "hold"
+    },
+    {
+        "text": "hold ADANI stock and wait",
+        "intent": "hold"
+    },
+    {
+        "text": "maintain ICICI position do not sell",
+        "intent": "hold"
+    },
+    {
+        "text": "i am keeping my Tesla shares",
+        "intent": "hold"
+    },
+    {
+        "text": "no movement on SENSEX keep holding",
+        "intent": "hold"
+    },
+    {
+        "text": "retain NVIDIA shares and wait for targets",
+        "intent": "hold"
+    },
+    {
+        "text": "stay in gold trading position",
+        "intent": "hold"
+    },
+    {
+        "text": "do not make any changes to ZOMATO position",
+        "intent": "hold"
+    },
+    {
+        "text": "hold PAYTM stock and wait for recovery",
+        "intent": "hold"
+    },
+    {
+        "text": "just hold and do nothing with my stock",
+        "intent": "hold"
+    },
+    {
+        "text": "keep the position as it is no changes",
+        "intent": "hold"
+    },
+    {
+        "text": "do not sell or buy just hold",
+        "intent": "hold"
+    },
+    {
+        "text": "wait and hold my current shares",
+        "intent": "hold"
+    },
+    {
+        "text": "maintain my existing position with no trades",
+        "intent": "hold"
+    },
+    {
+        "text": "i want to hold this stock for some more time",
+        "intent": "hold"
+    },
+    {
+        "text": "no action just retain the shares",
+        "intent": "hold"
+    },
+    {
+        "text": "keep the trade open and hold",
+        "intent": "hold"
+    },
+    {
+        "text": "do not close any position for now",
+        "intent": "hold"
+    },
+    {
+        "text": "sit on the stock and wait for it to go up",
+        "intent": "hold"
+    },
+    {
+        "text": "cancel my pending buy order for XYZ",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "withdraw the sell order for AAPL",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "cancel the limit order on TSLA",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "remove my pending MSFT order",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "abort the buy order I placed for GOOG",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "stop the RELIANCE order do not execute",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "revoke my order for AMZN shares",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "cancel all pending NIFTY trades",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "pull back my META sell order immediately",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "delete the queued buy for Netflix",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "cancel unfilled HDFC bank order",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "terminate the pending INFY purchase",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "discard the WIPRO order before it fills",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "kill my open TCS order",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "stop the BankNifty order right now",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "do not execute the TATA motors trade cancel it",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "I changed my mind cancel BAJAJ order",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "void the ADANI pending trade",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "rescind my ICICI bank order",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "cancel the Tesla buy order I placed",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "remove all open orders from queue",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "halt the NVIDIA order immediately",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "invalidate the AMD trade request",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "reject and cancel the ZOMATO buy order",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "erase my pending PAYTM trade",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "cancel my order I do not want to proceed",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "stop my pending order right now",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "pull the order back before it executes",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "i want to cancel the trade i just placed",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "undo my previous order",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "abort the trade request",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "do not fill this order cancel it",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "cancel and remove the order from the system",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "stop the execution of this pending order",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "i changed my mind please cancel the order",
+        "intent": "cancel_order"
+    },
+    {
+        "text": "what is the current price of XYZ stock",
+        "intent": "check_price"
+    },
+    {
+        "text": "show me the AAPL stock price right now",
+        "intent": "check_price"
+    },
+    {
+        "text": "how much is TSLA trading at",
+        "intent": "check_price"
+    },
+    {
+        "text": "check MSFT share price",
+        "intent": "check_price"
+    },
+    {
+        "text": "what is GOOG trading at today",
+        "intent": "check_price"
+    },
+    {
+        "text": "tell me RELIANCE current market price",
+        "intent": "check_price"
+    },
+    {
+        "text": "how much does AMZN cost per share now",
+        "intent": "check_price"
+    },
+    {
+        "text": "get NIFTY index current value",
+        "intent": "check_price"
+    },
+    {
+        "text": "show META live price",
+        "intent": "check_price"
+    },
+    {
+        "text": "latest price for Netflix stock",
+        "intent": "check_price"
+    },
+    {
+        "text": "what price is HDFC bank at now",
+        "intent": "check_price"
+    },
+    {
+        "text": "quote for INFY shares",
+        "intent": "check_price"
+    },
+    {
+        "text": "live market rate for WIPRO",
+        "intent": "check_price"
+    },
+    {
+        "text": "current quote for TCS please",
+        "intent": "check_price"
+    },
+    {
+        "text": "how much is BankNifty right now",
+        "intent": "check_price"
+    },
+    {
+        "text": "TATA motors share price today",
+        "intent": "check_price"
+    },
+    {
+        "text": "what is BAJAJ stock worth",
+        "intent": "check_price"
+    },
+    {
+        "text": "ADANI current trading price",
+        "intent": "check_price"
+    },
+    {
+        "text": "market value of ICICI bank shares",
+        "intent": "check_price"
+    },
+    {
+        "text": "fetch Tesla live price right now",
+        "intent": "check_price"
+    },
+    {
+        "text": "real time price of SENSEX",
+        "intent": "check_price"
+    },
+    {
+        "text": "how much is NVIDIA stock going for",
+        "intent": "check_price"
+    },
+    {
+        "text": "get AMD current price",
+        "intent": "check_price"
+    },
+    {
+        "text": "what is ZOMATO price right now",
+        "intent": "check_price"
+    },
+    {
+        "text": "check live PAYTM stock rate",
+        "intent": "check_price"
+    },
+    {
+        "text": "what is the current trading price of this stock",
+        "intent": "check_price"
+    },
+    {
+        "text": "how much is the stock trading at right now",
+        "intent": "check_price"
+    },
+    {
+        "text": "give me the latest share price",
+        "intent": "check_price"
+    },
+    {
+        "text": "show current market rate for these shares",
+        "intent": "check_price"
+    },
+    {
+        "text": "what is this stock worth at this moment",
+        "intent": "check_price"
+    },
+    {
+        "text": "tell me the live price of the stock",
+        "intent": "check_price"
+    },
+    {
+        "text": "price check on this security",
+        "intent": "check_price"
+    },
+    {
+        "text": "what is the value of the stock today",
+        "intent": "check_price"
+    },
+    {
+        "text": "where is the stock price trading now",
+        "intent": "check_price"
+    },
+    {
+        "text": "get me the real time market price",
+        "intent": "check_price"
+    },
+    {
+        "text": "show me my portfolio",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "what stocks do I currently hold",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "display all my open positions",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "how is my portfolio performing",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "give me a summary of my holdings",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "what is my total portfolio value today",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "list all my active trades",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "how much profit or loss am I making",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "check my overall investment status",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "show net PnL for today",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "what shares am I invested in right now",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "give me a breakdown of my stock holdings",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "show me unrealised profit on my trades",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "how many shares do I have in AAPL",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "what is my current exposure in the market",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "display my demat account holdings",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "what is the margin available in my account",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "show me today trade history",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "how many open positions do I have",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "total capital deployed in equities",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "portfolio overview please",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "check current account balance and positions",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "what is my realised profit this week",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "am I in profit or loss overall",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "give me full account and trade summary",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "show my investment account summary",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "what is the current state of my trading account",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "how much money is tied up in stocks",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "list my current equity positions",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "display all trades that are active right now",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "what are my current holdings in the market",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "show me all my investments today",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "what is my overall trading performance",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "give me full details of my account positions",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "i want to see all my open trades and balances",
+        "intent": "portfolio_status"
+    },
+    {
+        "text": "alert me when XYZ reaches 200",
+        "intent": "set_alert"
+    },
+    {
+        "text": "notify me if AAPL drops below 150",
+        "intent": "set_alert"
+    },
+    {
+        "text": "set a price alert for TSLA at 300",
+        "intent": "set_alert"
+    },
+    {
+        "text": "warn me when MSFT crosses 400 dollars",
+        "intent": "set_alert"
+    },
+    {
+        "text": "send alert if GOOG falls to 100",
+        "intent": "set_alert"
+    },
+    {
+        "text": "trigger notification when RELIANCE hits 2500",
+        "intent": "set_alert"
+    },
+    {
+        "text": "remind me if AMZN goes above 190",
+        "intent": "set_alert"
+    },
+    {
+        "text": "set NIFTY alert at 22000",
+        "intent": "set_alert"
+    },
+    {
+        "text": "ping me when META reaches 600 dollars",
+        "intent": "set_alert"
+    },
+    {
+        "text": "alert for Netflix at 700 strike",
+        "intent": "set_alert"
+    },
+    {
+        "text": "notify if HDFC bank drops below 1500",
+        "intent": "set_alert"
+    },
+    {
+        "text": "price alert on INFY when it hits 1800",
+        "intent": "set_alert"
+    },
+    {
+        "text": "set a buy trigger alert for WIPRO at 250",
+        "intent": "set_alert"
+    },
+    {
+        "text": "warn me when TCS goes beyond 4000",
+        "intent": "set_alert"
+    },
+    {
+        "text": "create alert for BankNifty at 48000",
+        "intent": "set_alert"
+    },
+    {
+        "text": "notify when TATA motors crosses 800",
+        "intent": "set_alert"
+    },
+    {
+        "text": "set BAJAJ alert for 8000 level",
+        "intent": "set_alert"
+    },
+    {
+        "text": "send me a notification if ADANI drops to 2000",
+        "intent": "set_alert"
+    },
+    {
+        "text": "alert me when ICICI bank reaches 1200",
+        "intent": "set_alert"
+    },
+    {
+        "text": "notify if Tesla falls under 200 dollars",
+        "intent": "set_alert"
+    },
+    {
+        "text": "set breakout alert for SENSEX at 80000",
+        "intent": "set_alert"
+    },
+    {
+        "text": "trigger when NVIDIA crosses 900 price point",
+        "intent": "set_alert"
+    },
+    {
+        "text": "alert me if AMD goes below 120 dollars",
+        "intent": "set_alert"
+    },
+    {
+        "text": "set target alert for ZOMATO at 300 rupees",
+        "intent": "set_alert"
+    },
+    {
+        "text": "notify me when PAYTM bounces back to 600",
+        "intent": "set_alert"
+    },
+    {
+        "text": "set an alert when the stock hits my target price",
+        "intent": "set_alert"
+    },
+    {
+        "text": "notify me when the price reaches my level",
+        "intent": "set_alert"
+    },
+    {
+        "text": "create a price notification for my watchlist stock",
+        "intent": "set_alert"
+    },
+    {
+        "text": "alert me at the resistance level of this stock",
+        "intent": "set_alert"
+    },
+    {
+        "text": "set a stop loss notification for my position",
+        "intent": "set_alert"
+    },
+    {
+        "text": "send an alert when the stock breaks above the high",
+        "intent": "set_alert"
+    },
+    {
+        "text": "ping me when price hits the support level",
+        "intent": "set_alert"
+    },
+    {
+        "text": "create a target price alert for the stock",
+        "intent": "set_alert"
+    },
+    {
+        "text": "i want to be notified when the stock moves 5 percent",
+        "intent": "set_alert"
+    },
+    {
+        "text": "set a trigger notification for my trade entry",
+        "intent": "set_alert"
+    }
+]

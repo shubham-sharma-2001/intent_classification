@@ -1,0 +1,20 @@
+{
+  "label2idx": {
+    "buy": 0,
+    "cancel_order": 1,
+    "check_price": 2,
+    "hold": 3,
+    "portfolio_status": 4,
+    "sell": 5,
+    "set_alert": 6
+  },
+  "idx2label": {
+    "0": "buy",
+    "1": "cancel_order",
+    "2": "check_price",
+    "3": "hold",
+    "4": "portfolio_status",
+    "5": "sell",
+    "6": "set_alert"
+  }
+}
