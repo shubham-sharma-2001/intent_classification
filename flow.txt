@@ -1,0 +1,54 @@
+Here's the full documentation:
+
+📄 Intent Classifier — Run Documentation
+Step 1 — One-time Setup
+powershell
+cd e:\python_work\intent_classifier
+pip install uv
+python -m uv venv .venv
+python -m uv pip install -r requirements.txt --python .venv\Scripts\python.exe
+Step 2 — Train the Model
+powershell
+.venv\Scripts\python.exe train.py
+Saves the best model automatically to checkpoints\intent_classifier.pt.
+
+Step 3 — Predict (3 modes)
+Single text:
+
+powershell
+.venv\Scripts\python.exe predict.py --text "get rid of all my TSLA shares"
+# → Intent: sell  (0.9986)
+Batch file (one sentence per line):
+
+powershell
+.venv\Scripts\python.exe predict.py --file my_queries.txt
+Interactive REPL (type freely):
+
+powershell
+.venv\Scripts\python.exe predict.py
+Show Top-K candidates:
+
+powershell
+.venv\Scripts\python.exe predict.py --text "exit position" --top_k 5
+Step 4 — Run Tests
+powershell
+.venv\Scripts\python.exe test_trading.py
+# → 29/29 correct (100%)
+Step 5 — Add New Intents / Data
+Edit 
+
+data/sample_data.json
+, append examples, then retrain:
+
+json
+{"text": "your new example", "intent": "your_intent"}
+powershell
+.venv\Scripts\python.exe train.py   # auto-discovers new labels
+Golden rule: Minimum 25 diverse phrasings per intent for good accuracy. Use generic words like "stock", "shares", "position" — not just specific ticker names.
+
+Troubleshooting
+Problem	Fix
+Wrong intent	Add more paraphrase examples for that class, retrain
+All ~14% confidence (random)	Batch size too large for data volume — use BATCH_SIZE=16
+Misspelled / unknown stock name predicted wrong	Add generic-phrasing examples, not just ticker-specific ones
+ModuleNotFoundError: torch	Use .venv\Scripts\python.exe, not system python
