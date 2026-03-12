@@ -1,0 +1,293 @@
+You are a senior Python backend architect.
+Generate a production-ready Python project that implements a semantic retrieval chatbot over schema.org metadata using local embeddings and FAISS, with an external LLM endpoint used only for reasoning/reranking.
+
+The system must support queries such as:
+
+User Query Example:
+"I want 20 items of XYZ stocks"
+
+The system should search through schema.org structured metadata and return the best matching entities.
+
+---
+
+SYSTEM REQUIREMENTS
+
+The system must:
+
+1. Use Python 3.11+
+2. Use FastAPI for the API layer
+3. Use Sentence Transformers for embeddings
+4. Use FAISS as an in-memory vector database
+5. Support schema.org JSON-LD input
+6. Convert schema data into searchable text
+7. Store embeddings in FAISS
+8. Perform semantic retrieval
+9. Send retrieved candidates to a configured LLM endpoint
+10. Return ranked results
+
+No external embedding APIs should be used.
+
+---
+
+PROJECT ARCHITECTURE
+
+Use a clean production architecture with separated modules.
+
+project-root/
+│
+├── app/
+│   ├── main.py
+│   ├── config.py
+│   ├── dependencies.py
+│
+│   ├── api/
+│   │   └── routes.py
+│
+│   ├── services/
+│   │   ├── embedding_service.py
+│   │   ├── retrieval_service.py
+│   │   ├── schema_parser.py
+│   │   ├── rerank_service.py
+│
+│   ├── models/
+│   │   └── request_models.py
+│
+│   ├── storage/
+│   │   ├── vector_store.py
+│   │   └── document_store.py
+│
+│   ├── utils/
+│   │   └── logger.py
+│
+├── data/
+│   └── schema_data.json
+│
+├── scripts/
+│   └── build_index.py
+│
+├── requirements.txt
+└── README.md
+
+---
+
+DEPENDENCIES
+
+requirements.txt must include:
+
+fastapi
+uvicorn
+sentence-transformers
+faiss-cpu
+pydantic
+requests
+python-dotenv
+rdflib
+numpy
+
+---
+
+CONFIGURATION
+
+The system must support environment configuration.
+
+config.py must allow configuring:
+
+LLM_ENDPOINT_URL
+EMBEDDING_MODEL_NAME
+VECTOR_DIMENSION
+TOP_K_RESULTS
+
+Example:
+
+LLM_ENDPOINT_URL=http://localhost:8001/chat
+EMBEDDING_MODEL_NAME=all-MiniLM-L6-v2
+VECTOR_DIMENSION=384
+TOP_K_RESULTS=20
+
+---
+
+SCHEMA PARSER
+
+Create a module that converts schema.org JSON-LD into text suitable for embeddings.
+
+Example input:
+
+{
+"@type": "Product",
+"name": "XYZ Semiconductor",
+"industry": "Technology",
+"exchange": "NASDAQ",
+"marketCap": "Large"
+}
+
+Converted text:
+
+"XYZ Semiconductor stock in technology industry listed on NASDAQ with large market cap"
+
+---
+
+EMBEDDING SERVICE
+
+Use sentence-transformers.
+
+Load model once at startup.
+
+Example:
+
+from sentence_transformers import SentenceTransformer
+
+Model should be cached in memory.
+
+---
+
+VECTOR STORE
+
+Use FAISS.
+
+Store:
+
+vector
+document metadata
+document id
+
+Support:
+
+add_documents()
+search(query_vector, k)
+
+---
+
+INDEX BUILD SCRIPT
+
+scripts/build_index.py must:
+
+1. Load schema JSON
+2. Convert schema to text
+3. Generate embeddings
+4. Insert into FAISS
+5. Save index
+
+---
+
+RETRIEVAL PIPELINE
+
+When a query is received:
+
+Step 1
+Embed user query
+
+Step 2
+Search FAISS index
+
+Step 3
+Retrieve top K documents
+
+Step 4
+Send candidate list to LLM endpoint for reranking
+
+---
+
+LLM RERANKING
+
+Send request to LLM endpoint.
+
+Payload example:
+
+{
+"query": "I want xyz stocks",
+"candidates": [
+"XYZ Semiconductor",
+"XYZ Capital",
+"ABC Semiconductor"
+]
+}
+
+Expected response:
+
+{
+"ranked_results": [...]
+}
+
+---
+
+API ENDPOINT
+
+POST /search
+
+Request:
+
+{
+"query": "I want xyz stocks",
+"limit": 20
+}
+
+Response:
+
+{
+"results": [...]
+}
+
+---
+
+PERFORMANCE REQUIREMENTS
+
+Vector search latency must be under 10 ms for 100k records.
+
+Use FAISS IndexFlatL2.
+
+---
+
+LOGGING
+
+Add structured logging.
+
+---
+
+README
+
+README must include:
+
+installation
+how to build index
+how to start API
+example curl request
+
+---
+
+CODE QUALITY
+
+Code must be:
+
+• production ready
+• modular
+• type hinted
+• documented
+• thread safe
+
+---
+
+EXTRA FEATURES
+
+Add:
+
+lazy model loading
+vector caching
+error handling
+API health endpoint
+
+---
+
+OUTPUT FORMAT
+
+Generate:
+
+1. full folder structure
+2. all source files
+3. requirements.txt
+4. README
+
+Code must be clean, formatted, and runnable.
+
+Do not skip files.
+
+Return the complete project.
