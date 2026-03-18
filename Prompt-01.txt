@@ -1,0 +1,204 @@
+You are a senior backend architect and AI engineer.
+
+Your task is to generate a complete production-style POC system for a banking risk query assistant with the following STRICT requirements:
+
+========================
+🚨 CORE REQUIREMENTS
+
+1. The SQL database is the ONLY source of truth.
+2. The LLM MUST NOT generate SQL directly.
+3. The LLM MUST ONLY generate a structured QUERY PLAN in JSON.
+4. The system MUST reject out-of-domain queries (e.g., sports, weather).
+5. ZERO hallucination: responses must only come from DB results.
+6. No hardcoded query rules for specific queries (system must be dynamic).
+7. The system must scale to 100+ tables (but POC will use 5 tables).
+
+========================
+🏗️ SYSTEM ARCHITECTURE
+
+User Query
+→ Domain Filter
+→ Schema Retrieval (from schema JSON)
+→ LLM (Query Planner → JSON ONLY)
+→ SQL Builder (deterministic Python logic)
+→ SQL Validator
+→ Database Execution
+→ Response Formatter (short answer)
+
+========================
+🗄️ DATABASE REQUIREMENTS
+
+Generate FULL SQL DDL + INSERT statements for these 5 tables:
+
+1. customers
+   (customer_id, name, age, country, risk_score)
+
+2. accounts
+   (account_id, customer_id, balance, account_type)
+
+3. transactions
+   (transaction_id, account_id, amount, transaction_type, transaction_date)
+
+4. fraud_alerts
+   (alert_id, customer_id, alert_type, severity, created_at)
+
+5. risk_profiles
+   (profile_id, customer_id, risk_category, last_updated)
+
+Also:
+
+- Add proper PRIMARY KEY and FOREIGN KEY constraints
+- Insert at least 10–15 realistic rows per table
+
+========================
+📚 SCHEMA KNOWLEDGE LAYER
+
+Generate a file:
+schema/schema_metadata.json
+
+It must include:
+
+- table name
+- description
+- columns with name + type + description
+- relationships (foreign keys)
+
+========================
+🧠 LLM QUERY PLANNER
+
+The LLM must ONLY output JSON in this format:
+
+{
+"table": "...",
+"joins": [],
+"filters": [],
+"columns": []
+}
+
+Rules:
+
+- No SQL allowed
+- Only use tables provided in schema
+- If query is irrelevant → return:
+  {"status": "OUT_OF_SCOPE"}
+
+========================
+🔍 DOMAIN FILTER
+
+Implement a Python function:
+
+- Reject queries not related to banking/risk
+- Use keyword + optional ML logic
+
+========================
+🔎 SCHEMA RETRIEVAL
+
+Implement:
+
+- Load schema_metadata.json
+- Return relevant tables based on query
+- (Do NOT use embeddings in this POC)
+
+========================
+🛠️ SQL BUILDER
+
+Convert QUERY PLAN → SQL
+
+Rules:
+
+- Only SELECT queries
+- Support JOIN, WHERE
+- Prevent SQL injection
+
+========================
+🔐 SQL VALIDATOR
+
+- Allow only SELECT
+- Block DROP, DELETE, UPDATE, INSERT
+- Validate table + column names
+
+========================
+🗄️ DATABASE CONNECTION
+
+- Use Python (psycopg2 or sqlite3)
+- Provide connection setup
+
+========================
+🎯 RESPONSE FORMATTER
+
+Return short answer like:
+
+- "5 high-risk customers found."
+- "No records found."
+
+No extra explanation.
+
+========================
+📂 PROJECT STRUCTURE
+
+Generate full folder structure:
+
+project/
+├── app.py
+├── db.py
+├── schema/
+│    └── schema_metadata.json
+├── services/
+│    ├── domain_filter.py
+│    ├── schema_retriever.py
+│    ├── query_planner.py
+│    ├── sql_builder.py
+│    ├── validator.py
+│    └── formatter.py
+├── config.py
+└── requirements.txt
+
+========================
+⚙️ INTEGRATION NOTE
+
+IMPORTANT:
+
+- DO NOT generate LLM connection code
+- Assume a function exists:
+
+def call_llm(prompt: str) -> str
+
+Use this function for query planning.
+
+========================
+🧪 TEST CASES
+
+Include examples:
+
+1. "Show transactions above 10000"
+2. "High risk customers with balance above 50000"
+3. "Who is best footballer"
+
+========================
+📌 OUTPUT FORMAT
+
+Generate:
+
+1. Full SQL DDL + INSERT script
+2. schema_metadata.json content
+3. All Python files (complete code)
+4. Example run (input → output)
+
+Ensure:
+
+- Clean, readable, production-style code
+- Proper comments
+- Modular design
+
+========================
+🚨 FINAL CONSTRAINT
+
+The system must NEVER allow:
+
+- LLM-generated SQL
+- Direct answers from LLM
+- Out-of-domain responses
+
+Only DB-backed answers are allowed.
+
+Now generate the complete implementation.
