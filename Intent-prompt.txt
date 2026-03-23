@@ -1,0 +1,368 @@
+You are a senior AI architect and backend engineer.
+
+Build a production-ready Hybrid Intent Classification System (AI + Non-AI) in Python.
+
+---
+
+🎯 OBJECTIVE
+
+Classify user queries into ONLY 3 intents:
+
+- BUY
+- SELL
+- UNKNOWN
+
+The system must:
+
+- Prefer deterministic reasoning (RDF Graph)
+- Use embeddings for semantic understanding
+- Use LLM only as fallback
+- Include human validation before learning
+- Continuously learn by updating the RDF graph
+
+---
+
+🏗️ ARCHITECTURE
+
+User Query
+↓
+Tokenizer
+↓
+RDF Ontology Graph Resolver (Apache Jena Fuseki)
+↓
+Embedding Similarity (Chroma / FAISS)
+↓
+LLM Semantic Reasoner (Fallback)
+↓
+Human Validation (Mandatory after LLM)
+↓
+Graph Auto-Learning (Update RDF Graph)
+↓
+Rule Validator
+↓
+Confidence Gate
+↓
+Intent Confirmation
+↓
+Execution
+
+---
+
+⚙️ TECH STACK
+
+- Python 3.10+
+- RDF Graph: Apache Jena Fuseki (SPARQL endpoint)
+- Embedding Model: nomic-ai/nomic-embed-text
+- Vector DB: FAISS or Chroma
+- LLM: openai gpt oss 20b (config-driven)
+- CLI Interface (no UI)
+
+---
+
+📁 PROJECT STRUCTURE
+
+project/
+│
+├── main.py
+├── config.py
+│
+├── tokenizer/
+│   └── tokenizer.py
+│
+├── graph/
+│   ├── rdf_client.py
+│   ├── graph_resolver.py
+│   ├── graph_updater.py
+│
+├── embedding/
+│   ├── embedding_model.py
+│   ├── vector_store.py
+│
+├── llm/
+│   └── llm_engine.py
+│
+├── human/
+│   └── human_validation.py
+│
+├── validator/
+│   └── rule_validator.py
+│
+├── pipeline/
+│   └── intent_pipeline.py
+│
+└── data/
+└── seed_rdf.ttl
+
+---
+
+1️⃣ TOKENIZER MODULE
+
+- Lowercase
+- Remove punctuation
+- Lemmatize
+- Output tokens
+
+Example:
+"I want to purchase Tesla shares"
+→ ["purchase","tesla","share"]
+
+---
+
+2️⃣ RDF GRAPH (APACHE JENA FUSEKI)
+
+Use RDF triples:
+
+Ontology Design
+
+Define:
+
+- Classes: Intent
+- Properties: hasKeyword
+
+---
+
+RDF DATA (VERY IMPORTANT — GENERATE THIS FILE)
+
+Create a Turtle (.ttl) file:
+
+BUY intent:
+
+:BUY a :Intent ;
+:hasKeyword "buy" ;
+:hasKeyword "purchase" ;
+:hasKeyword "acquire" ;
+:hasKeyword "invest" ;
+:hasKeyword "go long" .
+
+SELL intent:
+
+:SELL a :Intent ;
+:hasKeyword "sell" ;
+:hasKeyword "exit" ;
+:hasKeyword "close" ;
+:hasKeyword "liquidate" .
+
+UNKNOWN intent:
+
+:UNKNOWN a :Intent ;
+:hasKeyword "check" ;
+:hasKeyword "what" ;
+:hasKeyword "how" .
+
+---
+
+3️⃣ GRAPH RESOLVER (SPARQL)
+
+Write SPARQL query:
+
+SELECT ?intent WHERE {
+?intent :hasKeyword "purchase"
+}
+
+Logic:
+
+- Match tokens with RDF graph
+- If found → return intent
+- Confidence = 1.0
+
+---
+
+4️⃣ EMBEDDING LAYER
+
+Use:
+nomic-ai/nomic-embed-text
+
+Store intent phrases:
+
+BUY:
+
+- "buy stock"
+- "purchase shares"
+- "invest in stock"
+
+SELL:
+
+- "sell stock"
+- "exit position"
+
+UNKNOWN:
+
+- "check price"
+- "what is price"
+
+---
+
+VECTOR DB
+
+Use FAISS or Chroma:
+
+- Store embeddings of phrases
+- Query similarity
+- Use cosine similarity
+
+Threshold:
+
+0.85 → accept
+
+---
+
+5️⃣ LLM FALLBACK
+
+Model:
+openai gpt oss 20b
+
+Prompt:
+
+"Classify the intent into BUY, SELL, or UNKNOWN.
+
+Sentence: {query}
+
+Return only one word."
+
+---
+
+6️⃣ 🚨 HUMAN VALIDATION (MANDATORY)
+
+If LLM is used:
+
+Ask:
+
+"Detected intent is BUY. Is this correct? (yes/no)"
+
+If YES:
+→ accept
+
+If NO:
+→ ask:
+
+"What is the correct intent? (BUY/SELL/UNKNOWN)"
+
+---
+
+7️⃣ GRAPH AUTO-LEARNING (CRITICAL)
+
+After validation:
+
+- Extract tokens
+- Insert into RDF graph via SPARQL UPDATE
+
+Example:
+
+INSERT DATA {
+:BUY :hasKeyword "enter" .
+}
+
+This ensures:
+
+Next time → graph resolves directly
+NO LLM call needed
+
+---
+
+8️⃣ RULE VALIDATOR
+
+Rules:
+
+BUY:
+
+- must include asset (simple keyword check)
+
+SELL:
+
+- must include asset
+
+UNKNOWN:
+
+- always valid
+
+---
+
+9️⃣ CONFIDENCE GATE
+
+Priority:
+
+1. Graph → highest
+2. Embedding → medium
+3. LLM → lowest
+
+---
+
+🔟 INTENT CONFIRMATION
+
+Before execution:
+
+"Do you want to proceed with BUY?"
+
+---
+
+1️⃣1️⃣ EXECUTION
+
+Return structured output:
+
+{
+"intent": "BUY",
+"source": "graph/embedding/llm",
+"confidence": 0.95
+}
+
+---
+
+🧪 SAMPLE INPUTS
+
+buy tesla → BUY
+purchase apple → BUY
+exit tesla → SELL
+enter tesla → LLM → learned → next time graph
+what is tesla → UNKNOWN
+
+---
+
+🧠 LEARNING BEHAVIOR
+
+First time:
+"enter tesla" → LLM
+
+After validation:
+→ stored in RDF
+
+Second time:
+→ Graph resolves instantly
+
+---
+
+⚡ PERFORMANCE
+
+- Graph → ~1 ms
+- Embedding → ~5–10 ms
+- LLM → fallback only (<5%)
+
+---
+
+📦 OUTPUT REQUIREMENTS
+
+Generate FULL WORKING CODE:
+
+1. CLI-based interaction loop
+2. RDF Fuseki integration (SPARQL queries + updates)
+3. Embedding with nomic model
+4. FAISS or Chroma vector DB
+5. LLM integration (config-driven)
+6. Human validation logic
+7. Graph auto-update logic
+8. Modular code with comments
+9. Sample RDF .ttl file
+10. Requirements.txt
+
+---
+
+🚫 STRICT RULES
+
+- Only BUY, SELL, UNKNOWN intents
+- Always validate LLM output with human
+- Always update graph after validation
+- Do NOT skip layers
+- Do NOT overuse LLM
+
+---
+
+Build clean, modular, production-ready code with clear separation of concerns.
