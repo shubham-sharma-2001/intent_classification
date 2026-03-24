@@ -1,0 +1,345 @@
+You are a senior AI architect and backend engineer.
+
+Build a production-ready Hybrid Intent Classification System (AI + Non-AI) using:
+
+- RDF Graph (Apache Jena Fuseki)
+- Embeddings (nomic-ai/nomic-embed-text)
+- Vector DB (FAISS or Chroma)
+- LLM (openai gpt oss 20b)
+- CLI interface
+
+---
+
+🎯 SYSTEM ARCHITECTURE
+
+User Query
+↓
+Tokenizer
+↓
+Ontology Graph Resolver (RDF - Fuseki)
+↓
+Embedding Similarity (FAISS / Chroma)
+↓
+LLM Semantic Reasoner
+↓
+Human Validation
+↓
+Graph Auto-Learning (RDF Update)
+↓
+Rule Validator
+↓
+Confidence Gate
+↓
+Intent Confirmation
+↓
+Execution
+
+---
+
+🎯 INTENTS (STRICT)
+
+Only allow:
+
+- BUY
+- SELL
+- UNKNOWN
+
+---
+
+🧠 CORE REQUIREMENTS
+
+---
+
+1. Tokenizer
+
+- Normalize text (lowercase, remove punctuation)
+- Lemmatization
+- Output tokens
+
+---
+
+2. RDF GRAPH (Apache Jena Fuseki)
+
+Ontology Design
+
+Define:
+
+- Class: Intent
+- Properties:
+  - hasKeyword
+  - mapsToIntent
+
+Example triples:
+
+:buy rdf:type :Keyword
+:buy :mapsToIntent :BUY
+
+:purchase :mapsToIntent :BUY
+:sell :mapsToIntent :SELL
+
+---
+
+3. GRAPH QUERY (SPARQL)
+
+- Query Fuseki endpoint
+- Input: token
+- Output: intent
+
+Example SPARQL:
+
+SELECT ?intent WHERE {
+?word :mapsToIntent ?intent .
+FILTER(?word = "buy")
+}
+
+---
+
+4. GRAPH AUTO-UPDATE (CRITICAL)
+
+After human validation:
+
+Insert new triples into Fuseki
+
+Example:
+
+INSERT DATA {
+:enter :mapsToIntent :BUY .
+}
+
+---
+
+5. EMBEDDING LAYER
+
+Use:
+
+nomic-ai/nomic-embed-text
+
+Store vectors in:
+
+- FAISS OR Chroma
+
+Intent vectors:
+
+BUY:
+
+- "buy stock"
+- "purchase shares"
+- "invest in stock"
+
+SELL:
+
+- "sell stock"
+- "exit position"
+- "close trade"
+
+---
+
+6. EMBEDDING LOGIC
+
+- Convert query → embedding
+- Compute cosine similarity
+- If similarity > 0.85 → return intent
+
+---
+
+7. LLM FALLBACK
+
+Use:
+
+openai gpt oss 20b
+
+Prompt:
+
+Classify into BUY, SELL, UNKNOWN
+Return only one word
+
+---
+
+8. 🚨 HUMAN VALIDATION
+
+If LLM is used:
+
+Ask:
+
+"Detected intent is BUY. Is this correct? (yes/no)"
+
+If YES:
+
+- Accept
+- Update RDF graph
+
+If NO:
+
+- Ask correct intent
+- Update RDF graph
+
+---
+
+9. RULE VALIDATOR
+
+BUY:
+
+- optional asset
+
+SELL:
+
+- optional asset
+
+UNKNOWN:
+
+- always valid
+
+---
+
+10. CONFIDENCE LOGIC
+
+Priority:
+
+Graph > Embedding > LLM
+
+---
+
+11. CLI INTERFACE
+
+Interactive CLI:
+
+User enters query
+System prints:
+
+- intent
+- source (graph/embedding/llm)
+- confidence
+
+---
+
+🧱 PROJECT STRUCTURE
+
+project/
+│
+├── main.py
+├── config.py
+│
+├── tokenizer/
+├── graph/
+│   ├── fuseki_client.py
+│   ├── sparql_queries.py
+│   └── graph_updater.py
+│
+├── embedding/
+│   ├── embedding_engine.py
+│   └── vector_store.py
+│
+├── llm/
+│   └── llm_engine.py
+│
+├── human_loop/
+│   └── human_validation.py
+│
+├── validator/
+│   └── rule_validator.py
+│
+├── pipeline/
+│   └── intent_pipeline.py
+│
+└── data/
+└── intents.ttl
+
+---
+
+🔄 PIPELINE
+
+1. Tokenize
+2. Graph lookup (SPARQL)
+3. Embedding similarity
+4. LLM fallback
+5. Human validation
+6. RDF update
+7. Validate rules
+8. Return result
+
+---
+
+🧪 TEST CASES
+
+"buy tesla" → BUY (graph)
+"purchase apple" → BUY (graph)
+"exit tesla" → SELL (graph)
+"enter tesla" → first LLM → then graph learns
+"what is tesla price" → UNKNOWN
+
+---
+
+⚡ PERFORMANCE
+
+Graph: O(1)
+Embedding: <10 ms
+LLM: <5% usage
+
+---
+
+🎯 OUTPUT
+
+Generate:
+
+1. Full working Python code (ALL FILES)
+2. Fuseki client integration
+3. SPARQL queries
+4. Embedding pipeline
+5. CLI app
+6. Human validation loop
+7. RDF graph update logic
+8. Config-based endpoints
+
+---
+
+📁 ALSO GENERATE RDF FILE (IMPORTANT)
+
+Create a file:
+
+data/intents.ttl
+
+Include initial graph:
+
+@prefix : "http://example.org/intent#" (http://example.org/intent#) .
+
+:BUY rdf:type :Intent .
+:SELL rdf:type :Intent .
+:UNKNOWN rdf:type :Intent .
+
+:buy :mapsToIntent :BUY .
+:purchase :mapsToIntent :BUY .
+:acquire :mapsToIntent :BUY .
+:invest :mapsToIntent :BUY .
+:long :mapsToIntent :BUY .
+
+:sell :mapsToIntent :SELL .
+:exit :mapsToIntent :SELL .
+:close :mapsToIntent :SELL .
+:liquidate :mapsToIntent :SELL .
+
+:check :mapsToIntent :UNKNOWN .
+:what :mapsToIntent :UNKNOWN .
+:how :mapsToIntent :UNKNOWN .
+
+---
+
+🧠 LEARNING BEHAVIOR
+
+System must:
+
+- Learn new keywords from human validation
+- Persist in RDF graph
+- Avoid LLM next time
+
+---
+
+🚫 RULES
+
+- Only BUY, SELL, UNKNOWN
+- Always validate LLM output
+- Never skip graph update
+- Keep system modular
+
+---
+
+Build complete working code.
