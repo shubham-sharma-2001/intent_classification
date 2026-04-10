@@ -1,0 +1,672 @@
+You are a senior AI architect and Python backend engineer.
+
+Build a production-grade Hybrid Intent Extraction System that mimics human reasoning and extracts ONLY the true actionable intent from noisy natural language.
+
+---
+
+🎯 OBJECTIVE
+
+The system must:
+
+1. Accept any natural language input (messy, long, conversational)
+2. Extract ONLY the actionable intent sentence
+3. Classify into STRICT intents:
+   - BUY
+   - SELL
+   - UNKNOWN
+4. Extract:
+   - Asset (Tesla, Apple, etc.)
+   - Quantity (10, 100, etc.)
+5. Ignore:
+   - Confusion ("I think", "maybe")
+   - Questions ("should I", "what if")
+   - Negation ("don't want", "never")
+   - Sarcasm (handled via LLM fallback)
+6. Achieve:
+   - ~98–99% intent accuracy
+   - ~100% safe execution
+
+---
+
+🧠 CORE PRINCIPLE
+
+DO NOT classify entire input.
+
+Instead:
+
+1. Break into clauses
+2. Filter noise
+3. Detect real action
+4. Extract intent
+
+---
+
+🔄 FULL PIPELINE (STRICT ORDER)
+
+User Input
+↓
+[1] Sentence Splitter
+↓
+[2] Intent Signal Scorer
+↓
+[3] Negation + Linguistic Layer
+↓
+[4] Entity Extractor
+↓
+[5] Graph Resolver (RDF - Fuseki)
+↓
+[6] Embedding Similarity (nomic + FAISS/Chroma)
+↓
+[7] LLM Reasoner (openai gpt oss 20B)
+↓
+[8] Aggregation Engine
+↓
+[9] Rule Validator
+↓
+[10] Confidence Engine
+↓
+[11] Human Validation
+↓
+[12] Graph Learning Controller
+↓
+Final Output
+
+---
+
+📁 PROJECT STRUCTURE
+
+project/
+├── main.py
+├── config.py
+├── pipeline/intent_pipeline.py
+├── preprocessing/
+│   ├── sentence_splitter.py
+│   ├── intent_signal_scorer.py
+│   └── negation_handler.py
+├── extraction/entity_extractor.py
+├── graph/
+│   ├── fuseki_client.py
+│   ├── sparql_queries.py
+│   └── graph_learning.py
+├── embedding/
+│   ├── embedding_engine.py
+│   └── vector_store.py
+├── llm/llm_engine.py
+├── aggregation/aggregator.py
+├── validation/
+│   ├── rule_validator.py
+│   └── confidence_engine.py
+├── human_loop/human_validation.py
+└── data/intents.ttl
+
+---
+
+🔥 MODULE IMPLEMENTATION DETAILS
+
+---
+
+[1] Sentence Splitter
+
+Goal:
+
+Split input into meaningful clauses.
+
+Use:
+
+- spaCy OR regex
+
+Logic:
+
+- Split on:
+  - ".", ",", "but", "and", "however"
+
+Example:
+
+"I am confused but I want to buy Tesla"
+
+→ ["I am confused", "I want to buy Tesla"]
+
+---
+
+[2] Intent Signal Scorer ⭐
+
+Goal:
+
+Filter actionable sentences
+
+---
+
+Define scores:
+
+buy/sell/purchase → 1.0
+want to → 0.9
+plan to → 0.7
+thinking → 0.5
+maybe/confused → 0.3
+
+---
+
+Rule:
+
+if score < 0.8:
+discard sentence
+
+---
+
+Pseudo-code:
+
+for sentence in sentences:
+score = calculate_score(sentence)
+if score >= 0.8:
+keep
+
+---
+
+---
+
+[3] Negation Handler ⭐
+
+Goal:
+
+Remove sentences where action is negated
+
+---
+
+Detect:
+
+not, never, don’t, avoid, refuse
+
+---
+
+Rule:
+
+if negation exists AND near action verb:
+discard sentence
+
+---
+
+Example:
+
+"I don't want to buy Tesla" → REMOVE
+
+---
+
+Advanced:
+
+Use dependency parsing (spaCy) to detect scope
+
+---
+
+---
+
+[4] Entity Extractor ⭐
+
+Goal:
+
+Extract asset and quantity
+
+---
+
+Methods:
+
+- Regex for numbers
+- Dictionary for stock names
+- spaCy NER (optional)
+
+---
+
+Example:
+
+"buy 10 Tesla shares"
+
+→ asset = TESLA
+→ quantity = 10
+
+---
+
+Rule:
+
+if asset AND quantity:
+mark sentence HIGH PRIORITY
+
+---
+
+---
+
+[5] Graph Resolver (PRIMARY ENGINE)
+
+Goal:
+
+Resolve synonyms → intent
+
+---
+
+Use:
+
+- Apache Jena Fuseki
+- SPARQL queries
+
+---
+
+Example query:
+
+SELECT ?intent WHERE {
+?word :mapsToIntent ?intent .
+FILTER(?word = "purchase")
+}
+
+---
+
+If match found:
+
+return intent, confidence = 1.0
+
+---
+
+---
+
+[6] Embedding Similarity
+
+Goal:
+
+Semantic fallback
+
+---
+
+Use:
+
+- nomic-ai/nomic-embed-text
+- FAISS / Chroma
+
+---
+
+Process:
+
+- Convert query → vector
+- Compare with stored intent phrases
+
+---
+
+Threshold:
+
+if similarity > 0.85:
+return intent
+
+---
+
+---
+
+[7] LLM Reasoner (LAST FALLBACK)
+
+Goal:
+
+Handle sarcasm, indirect intent
+
+---
+
+Prompt:
+
+"Classify intent into BUY, SELL, UNKNOWN. Return only one word."
+
+---
+
+Use ONLY if:
+
+- graph fails
+- embedding < threshold
+
+---
+
+---
+
+[8] Aggregation Engine
+
+Goal:
+
+Select best intent from multiple candidates
+
+---
+
+Rules:
+
+- highest confidence
+- contains entity
+- highest intent score
+- latest actionable sentence
+
+---
+
+---
+
+[9] Rule Validator
+
+Rules:
+
+BUY requires asset
+SELL requires asset
+UNKNOWN always valid
+
+---
+
+---
+
+[10] Confidence Engine
+
+Priority:
+
+Graph > Embedding > LLM
+
+---
+
+Decision:
+
+confidence > 0.9 → accept
+else → validate
+
+---
+
+---
+
+[11] Human Validation
+
+Trigger:
+
+if LLM used OR low confidence
+
+---
+
+Flow:
+
+Ask user:
+"Detected intent is BUY. Confirm?"
+
+If YES → proceed
+If NO → ask correct intent
+
+---
+
+---
+
+[12] Graph Learning Controller
+
+Goal:
+
+Improve system over time
+
+---
+
+Rule:
+
+ONLY learn if:
+
+- human confirmed
+- confidence high
+
+---
+
+Add mapping:
+
+"put money" → BUY
+
+---
+
+Prevent:
+
+- duplicate entries
+- ambiguous mappings
+
+---
+
+---
+
+📁 RDF GRAPH FILE
+
+data/intents.ttl
+
+@prefix : "http://example.org/intent#" (http://example.org/intent#) .
+
+:BUY :type :Intent .
+:SELL :type :Intent .
+:UNKNOWN :type :Intent .
+
+:buy :mapsToIntent :BUY .
+:purchase :mapsToIntent :BUY .
+:invest :mapsToIntent :BUY .
+
+:sell :mapsToIntent :SELL .
+:exit :mapsToIntent :SELL .
+
+---
+
+🧪 FULL TEST CASE
+
+Input:
+
+"I was thinking since long to invest but I am confused. I found Tesla and I want to buy 10 shares"
+
+---
+
+Expected Output:
+
+{
+"intent": "BUY",
+"asset": "TESLA",
+"quantity": 10,
+"confidence": 1.0,
+"source": "graph"
+}
+
+---
+
+⚠️ STRICT RULES
+
+- Only BUY / SELL / UNKNOWN
+- Ignore non-actionable sentences
+- NEVER execute negated intent
+- LLM must ALWAYS be validated
+- Graph is PRIMARY
+- System must learn over time
+
+---
+
+🎯 FINAL OUTPUT FORMAT
+
+{
+"intent": "BUY",
+"asset": "TESLA",
+"quantity": 10,
+"confidence": 0.98,
+"source": "graph/embedding/llm"
+}
+
+---
+
+🚀 GOAL
+
+Generate full working Python project:
+
+- modular code
+- CLI interface
+- clean architecture
+- scalable design
+
+---
+
+Build this as a production-ready system.
+--------------------Generate file wise----+++
+Generate config.py
+Writing
+Generate a Python file config.py for the Hybrid Intent Extraction System.
+Requirements:
+Store all configuration constants
+Include:
+Fuseki endpoint URL
+Embedding model name (nomic-ai/nomic-embed-text)
+LLM model name (openai gpt oss 20b)
+Similarity threshold (0.85)
+Confidence threshold (0.9)
+Supported intents: BUY, SELL, UNKNOWN
+Add class-based config (Config class)
+Use environment variable support (os.getenv)
+Keep it clean and production-ready
+
+sentence_splitter.py
+Writing
+Generate sentence_splitter.py.
+Requirements:
+Use spaCy OR regex
+Function: split_sentences(text: str) -> List[str]
+Split using:
+".", ",", "but", "and", "however"
+Clean whitespace
+Return list of meaningful clauses
+Handle edge cases (empty strings, punctuation)
+Add docstrings and examples
+🟩 3️⃣ Generate intent_signal_scorer.py
+Writing
+Generate intent_signal_scorer.py.
+Requirements:
+Function: score_sentence(sentence: str) -> float
+Use rule-based scoring:
+buy/sell/purchase → 1.0
+want to → 0.9
+plan to → 0.7
+thinking → 0.5
+maybe/confused → 0.3
+Function: filter_actionable(sentences: List[str]) -> List[str]
+Keep only sentences with score >= 0.8
+Return filtered list
+Add logging for debugging
+🟩 4️⃣ Generate negation_handler.py
+Writing
+Generate negation_handler.py.
+Requirements:
+Detect negation words: not, never, don't, avoid, refuse
+Function: is_negated(sentence: str) -> bool
+Basic rule: if negation word appears near action verb → return True
+Advanced: optionally use spaCy dependency parsing
+Function: remove_negated(sentences: List[str]) -> List[str]
+Remove negated sentences
+Add comments explaining logic
+🟩 5️⃣ Generate entity_extractor.py
+Writing
+Generate entity_extractor.py.
+Requirements:
+Extract:
+asset (Tesla, Apple, etc.)
+quantity (numbers)
+Use:
+regex for numbers
+simple dictionary for assets
+Function: extract_entities(sentence: str) -> dict
+Return:
+{ "asset": "TESLA", "quantity": 10 }
+Normalize asset to uppercase
+Handle missing values
+🟩 6️⃣ Generate fuseki_client.py
+Writing
+Generate fuseki_client.py.
+Requirements:
+Connect to Apache Jena Fuseki
+Use SPARQLWrapper or requests
+Function: query_intent(word: str) -> str
+Execute SPARQL query to fetch intent
+Handle errors
+Return None if not found
+🟩 7️⃣ Generate sparql_queries.py
+Writing
+Generate sparql_queries.py.
+Requirements:
+Store reusable SPARQL queries
+Example: query to map word → intent
+Use string templates
+Clean structure
+🟩 8️⃣ Generate embedding_engine.py
+Writing
+Generate embedding_engine.py.
+Requirements:
+Use nomic-ai/nomic-embed-text
+Function: get_embedding(text: str) -> vector
+Load model once (singleton pattern)
+Efficient design
+Add comments
+🟩 9️⃣ Generate vector_store.py
+Writing
+Generate vector_store.py.
+Requirements:
+Use FAISS or Chroma
+Store intent phrases
+Function: find_similar(text: str) -> (intent, score)
+Return best match
+Use cosine similarity
+🟩 🔟 Generate llm_engine.py
+Writing
+Generate llm_engine.py.
+Requirements:
+Integrate openai gpt oss 20B
+Function: classify_intent(text: str) -> str
+Prompt:
+"Classify intent into BUY, SELL, UNKNOWN. Return only one word."
+Validate output strictly
+Handle errors
+🟩 1️⃣1️⃣ Generate aggregator.py
+Writing
+Generate aggregator.py.
+Requirements:
+Combine multiple intent candidates
+Function: select_best(candidates: list) -> dict
+Rules:
+highest confidence
+entity present
+highest score
+Return final intent object
+🟩 1️⃣2️⃣ Generate rule_validator.py
+Writing
+Generate rule_validator.py.
+Requirements:
+Validate intent rules
+BUY/SELL require asset
+Function: validate(intent_data: dict) -> bool
+Return True/False
+🟩 1️⃣3️⃣ Generate confidence_engine.py
+Writing
+Generate confidence_engine.py.
+Requirements:
+Assign confidence: graph = 1.0
+embedding = 0.9
+llm = 0.8
+Function: compute_confidence(source: str) -> float
+🟩 1️⃣4️⃣ Generate human_validation.py
+Writing
+Generate human_validation.py.
+Requirements:
+CLI-based confirmation
+Ask user: "Detected intent is BUY. Confirm?"
+Handle yes/no
+Return final decision
+🟩 1️⃣5️⃣ Generate graph_learning.py
+Writing
+Generate graph_learning.py.
+Requirements:
+Insert new mappings into Fuseki
+Function: add_mapping(word, intent)
+Only after validation
+Avoid duplicates
+🟩 1️⃣6️⃣ Generate intent_pipeline.py
+Writing
+Generate intent_pipeline.py.
+Requirements:
+Orchestrate full pipeline
+Call modules in order:
+split → filter → negation → entity → graph → embedding → llm → aggregate → validate → confidence → human → learn
+Return final output dict
+Clean structure
+🟩 1️⃣7️⃣ Generate main.py
+Writing
+Generate main.py.
+Requirements:
+CLI interface
+Take user input
+Call pipeline
+Print result nicely
+Loop for multiple inputs
