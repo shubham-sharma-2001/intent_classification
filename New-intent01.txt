@@ -1,0 +1,311 @@
+You are a senior AI engineer. Build a production-grade intent classification system with the following strict requirements.
+
+---
+
+🔷 1. GOAL
+
+Classify user input into ONLY 3 intents:
+
+1. BUY
+2. SELL
+3. UNKNOWN
+
+Additionally extract:
+
+- asset (string)
+- quantity (number)
+
+System must:
+
+- Use hybrid approach (embeddings + LLM + rules + graph memory)
+- Use nomic embeddings
+- Use OpenAI LLM (credentials from .env)
+- Use vector DB as semantic graph
+- Use cache for fast retrieval
+- Support human validation loop
+- Store structured labels for learning
+
+---
+
+🔷 2. INPUT EXAMPLE
+
+"I was thinking since long to get some stocks but I'm confused where to put my money. So I found Tesla and I want to put money on 10 shares"
+
+Expected Output:
+{
+"intent": "BUY",
+"asset": "Tesla",
+"quantity": 10,
+"confidence": 0.9+
+}
+
+---
+
+🔷 3. CORE PIPELINE (STRICT FLOW)
+
+Implement pipeline EXACTLY in this order:
+
+1. Preprocessing
+2. Entity Extraction (FIRST GATE)
+3. Graph Memory Search (Vector DB)
+4. Embedding Retrieval (Top-K intents)
+5. LLM Reasoning
+6. Rule Engine (negation + priority)
+7. Re-ranking
+8. Confidence Gate
+9. Cache + Graph Update
+10. Human-in-the-loop (if needed)
+
+---
+
+🔷 4. ENTITY EXTRACTION (CRITICAL RULE)
+
+- Extract asset (Tesla, Apple, etc.)
+- Extract quantity (numbers)
+
+Rule:
+IF asset AND quantity present:
+force intent detection
+boost BUY/SELL confidence
+
+---
+
+🔷 5. VECTOR DB AS GRAPH (MANDATORY)
+
+Use FAISS or any vector DB.
+
+Each node must store:
+{
+id,
+text,
+embedding,
+intent,
+labels: {
+asset,
+quantity,
+action,
+confidence,
+validated (true/false),
+source (llm/human)
+}
+}
+
+Support:
+
+- similarity search
+- top-k retrieval
+- threshold matching (>0.9 for direct use)
+
+---
+
+🔷 6. CACHE LAYER
+
+Use key-value store (Redis or dict).
+
+IF exact query found:
+return instantly
+
+---
+
+🔷 7. EMBEDDING LAYER
+
+Use nomic embeddings:
+
+- embed query
+- embed intent descriptions
+
+Intent descriptions:
+BUY → "user wants to purchase stock or invest"
+SELL → "user wants to sell or exit stock"
+UNKNOWN → "unclear or no financial action"
+
+---
+
+🔷 8. LLM REASONING
+
+Use OpenAI model from .env.
+
+Prompt must:
+
+- include query
+- include extracted entities
+- include candidate intents
+- detect negation
+- prioritize final instruction
+
+Return JSON:
+{
+"intent": "...",
+"asset": "...",
+"quantity": ...,
+"confidence": 0-1,
+"negation": true/false
+}
+
+---
+
+🔷 9. RULE ENGINE (MANDATORY)
+
+Implement rules:
+
+1. Negation:
+   "don't buy" → UNKNOWN
+
+2. Final instruction priority:
+   "ok do one thing..." → override earlier text
+
+3. Entity boost:
+   if asset + quantity → boost BUY/SELL
+
+4. Ambiguity:
+   if confusion words ("maybe", "thinking") → lower confidence
+
+---
+
+🔷 10. RE-RANKING
+
+final_score =
+0.4 * embedding_score +
+0.4 * llm_confidence +
+0.2 * rule_score
+
+---
+
+🔷 11. CONFIDENCE GATE
+
+«0.85 → HIGH → store in graph + cache
+0.6–0.85 → MEDIUM → send to human
+< 0.6 → LOW → return UNKNOWN or clarification»
+
+---
+
+🔷 12. HUMAN LOOP
+
+For medium/low confidence:
+
+- simulate human validation function
+- corrected output stored with:
+  validated = true
+  source = "human"
+
+---
+
+🔷 13. GRAPH LEARNING
+
+After final decision:
+
+- store query embedding
+- store labels (intent, asset, quantity)
+
+Also generate variations using LLM:
+Example:
+"buy Tesla 10 shares"
+"invest in Tesla 10 qty"
+
+Store them as additional nodes
+
+---
+
+🔷 14. NEGATION HANDLING EXAMPLES
+
+"I don’t want to buy Tesla" → UNKNOWN
+"cancel buying Tesla" → UNKNOWN
+"buy Tesla" → BUY
+
+---
+
+🔷 15. FILE STRUCTURE (MANDATORY)
+
+intent_system/
+│
+├── config.py
+├── main.py
+├── pipeline.py
+│
+├── preprocessing.py
+├── entity_extractor.py
+├── embedding_engine.py
+├── vector_graph.py
+├── cache_manager.py
+├── llm_classifier.py
+├── rule_engine.py
+├── reranker.py
+├── confidence_engine.py
+├── human_loop.py
+│
+├── db/
+│   ├── vector_store/
+│   ├── cache/
+│   └── logs/
+│
+├── prompts/
+│   └── intent_prompt.txt
+│
+├── utils/
+│   └── logger.py
+│
+└── .env
+
+---
+
+🔷 16. .ENV USAGE
+
+Load:
+OPENAI_API_KEY
+NOMIC_API_KEY
+
+---
+
+🔷 17. LOGGING (IMPORTANT)
+
+Log every step:
+
+- input
+- extracted entities
+- embedding scores
+- LLM output
+- final intent
+
+---
+
+🔷 18. OUTPUT FORMAT
+
+Always return:
+
+{
+"intent": "BUY/SELL/UNKNOWN",
+"asset": "...",
+"quantity": ...,
+"confidence": float,
+"source": "cache/graph/llm/human"
+}
+
+---
+
+🔷 19. PERFORMANCE REQUIREMENTS
+
+- Use cache first
+- Use graph second
+- Use LLM last
+
+---
+
+🔷 20. FINAL GOAL
+
+System should:
+
+- learn from every query
+- avoid repeated mistakes
+- become faster over time
+- handle variations of same sentence
+
+---
+
+🔷 21. IMPLEMENTATION REQUIREMENT
+
+Write clean modular Python code.
+Each module should be independent and testable.
+
+---
+
+END OF INSTRUCTIONS
