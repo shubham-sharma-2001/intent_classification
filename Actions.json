@@ -1,0 +1,4 @@
+{
+  "buy": ["buy", "purchase", "invest", "acquire"],
+  "sell": ["sell", "exit", "liquidate", "offload"]
+}
