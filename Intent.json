@@ -1,0 +1,14 @@
+[
+  {
+    "intent": "BUY",
+    "description": "User wants to purchase stocks, invest money, or acquire shares"
+  },
+  {
+    "intent": "SELL",
+    "description": "User wants to sell stocks, exit position, or liquidate shares"
+  },
+  {
+    "intent": "UNKNOWN",
+    "description": "User intent is unclear, negated, or not actionable"
+  }
+]
