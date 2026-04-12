@@ -1,0 +1,32 @@
+[
+  {
+    "text": "buy Tesla shares",
+    "intent": "BUY",
+    "asset": "Tesla",
+    "quantity": null
+  },
+  {
+    "text": "invest in Tesla 10 shares",
+    "intent": "BUY",
+    "asset": "Tesla",
+    "quantity": 10
+  },
+  {
+    "text": "sell Apple stock",
+    "intent": "SELL",
+    "asset": "Apple",
+    "quantity": null
+  },
+  {
+    "text": "I don’t want to buy stocks",
+    "intent": "UNKNOWN",
+    "asset": null,
+    "quantity": null
+  },
+  {
+    "text": "maybe I will invest later",
+    "intent": "UNKNOWN",
+    "asset": null,
+    "quantity": null
+  }
+]
