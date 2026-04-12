@@ -1,0 +1,100 @@
+[
+  {
+    "id": "1",
+    "text": "buy Tesla shares",
+    "intent": "BUY",
+    "embedding": null,
+    "labels": {
+      "asset": "Tesla",
+      "quantity": null,
+      "action": "buy",
+      "confidence": 0.95,
+      "validated": true,
+      "source": "seed"
+    }
+  },
+  {
+    "id": "2",
+    "text": "purchase 10 shares of Tesla",
+    "intent": "BUY",
+    "embedding": null,
+    "labels": {
+      "asset": "Tesla",
+      "quantity": 10,
+      "action": "buy",
+      "confidence": 0.95,
+      "validated": true,
+      "source": "seed"
+    }
+  },
+  {
+    "id": "3",
+    "text": "invest in Apple stock",
+    "intent": "BUY",
+    "embedding": null,
+    "labels": {
+      "asset": "Apple",
+      "quantity": null,
+      "action": "buy",
+      "confidence": 0.9,
+      "validated": true,
+      "source": "seed"
+    }
+  },
+  {
+    "id": "4",
+    "text": "sell my Tesla shares",
+    "intent": "SELL",
+    "embedding": null,
+    "labels": {
+      "asset": "Tesla",
+      "quantity": null,
+      "action": "sell",
+      "confidence": 0.95,
+      "validated": true,
+      "source": "seed"
+    }
+  },
+  {
+    "id": "5",
+    "text": "sell 5 shares of Apple",
+    "intent": "SELL",
+    "embedding": null,
+    "labels": {
+      "asset": "Apple",
+      "quantity": 5,
+      "action": "sell",
+      "confidence": 0.95,
+      "validated": true,
+      "source": "seed"
+    }
+  },
+  {
+    "id": "6",
+    "text": "I don’t want to buy Tesla",
+    "intent": "UNKNOWN",
+    "embedding": null,
+    "labels": {
+      "asset": "Tesla",
+      "quantity": null,
+      "action": "negation",
+      "confidence": 0.95,
+      "validated": true,
+      "source": "seed"
+    }
+  },
+  {
+    "id": "7",
+    "text": "maybe I should invest in stocks",
+    "intent": "UNKNOWN",
+    "embedding": null,
+    "labels": {
+      "asset": null,
+      "quantity": null,
+      "action": "uncertain",
+      "confidence": 0.85,
+      "validated": true,
+      "source": "seed"
+    }
+  }
+]
